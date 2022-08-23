@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.domain.model
+package com.blueberryprojects.cryptowatch.featurecrypto.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

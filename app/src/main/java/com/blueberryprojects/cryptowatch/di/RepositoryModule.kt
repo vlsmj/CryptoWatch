@@ -1,7 +1,7 @@
 package com.blueberryprojects.cryptowatch.di
 
-import com.blueberryprojects.cryptowatch.feature_crypto.data.repository_impl.CoinRepositoryImpl
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.repository.CoinRepository
+import com.blueberryprojects.cryptowatch.featurecrypto.data.repositoryimpl.CoinRepositoryImpl
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

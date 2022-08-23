@@ -3,11 +3,11 @@ package com.blueberryprojects.cryptowatch.di
 import android.app.Application
 import androidx.room.Room
 import com.blueberryprojects.cryptowatch.common.Constants.BASE_URL
-import com.blueberryprojects.cryptowatch.feature_crypto.data.data_source.CryptoDatabase
-import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.CoinGeckoApi
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.repository.CoinRepository
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.use_case.coins.CoinsUseCases
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.use_case.coins.GetAllCoinsUseCase
+import com.blueberryprojects.cryptowatch.featurecrypto.data.data_source.CryptoDatabase
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.CoinsUseCases
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.GetAllCoinsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

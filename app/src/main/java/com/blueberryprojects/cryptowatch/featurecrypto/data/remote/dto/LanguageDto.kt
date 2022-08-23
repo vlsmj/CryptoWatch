@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto
+package com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto
 
 import com.blueberryprojects.cryptowatch.common.Constants.LANGUAGE
 import com.google.gson.annotations.SerializedName

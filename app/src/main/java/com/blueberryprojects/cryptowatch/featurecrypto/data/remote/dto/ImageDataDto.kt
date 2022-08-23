@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto
+package com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto
 
 data class ImageDataDto(
     val thumb: String,

@@ -1,6 +1,6 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto
+package com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto
 
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.model.Coin
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 import com.google.gson.annotations.SerializedName
 
 data class CoinDto(

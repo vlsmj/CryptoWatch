@@ -1,12 +1,12 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.domain.use_case.coins
+package com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins
 
 import com.blueberryprojects.cryptowatch.R
 import com.blueberryprojects.cryptowatch.common.util.Resource
 import com.blueberryprojects.cryptowatch.common.util.UiText
-import com.blueberryprojects.cryptowatch.feature_crypto.data.data_source.CoinDao
-import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.toCoin
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.model.Coin
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.repository.CoinRepository
+import com.blueberryprojects.cryptowatch.featurecrypto.data.data_source.CoinDao
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.toCoin
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

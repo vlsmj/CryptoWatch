@@ -1,7 +1,7 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.data.remote
+package com.blueberryprojects.cryptowatch.featurecrypto.data.remote
 
-import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDataDto
-import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDto
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinDataDto
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 

@@ -1,9 +1,9 @@
-package com.blueberryprojects.cryptowatch.feature_crypto.data.data_source
+package com.blueberryprojects.cryptowatch.featurecrypto.data.data_source
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.blueberryprojects.cryptowatch.feature_crypto.domain.model.Coin
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 
 @Dao
 interface CoinDao {
