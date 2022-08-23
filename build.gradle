@@ -6,7 +6,6 @@ buildscript {
         glide_version = '4.13.2'
         okhttp_version = '4.10.0'
         retrofit_version = '2.9.0'
-        gson_version = '2.9.1'
     }
 
     dependencies {

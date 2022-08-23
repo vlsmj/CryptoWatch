@@ -1,7 +1,11 @@
 package com.blueberryprojects.cryptowatch.feature_crypto.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Coin(
-    val id: String,
+    @PrimaryKey val id: String,
     val symbol: String,
     val name: String,
     val image: String,

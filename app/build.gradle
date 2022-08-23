@@ -91,9 +91,7 @@ dependencies {
 
     /* Retrofit */
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-
-    /* Gson */
-    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }
 
 // Allow references to generated code
