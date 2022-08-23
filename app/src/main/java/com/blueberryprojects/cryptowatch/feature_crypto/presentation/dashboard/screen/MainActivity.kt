@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch
+package com.blueberryprojects.cryptowatch.feature_crypto.presentation.dashboard.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
