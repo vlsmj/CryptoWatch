@@ -3,7 +3,7 @@ package com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins
 import com.blueberryprojects.cryptowatch.R
 import com.blueberryprojects.cryptowatch.common.util.Resource
 import com.blueberryprojects.cryptowatch.common.util.UiText
-import com.blueberryprojects.cryptowatch.featurecrypto.data.data_source.CoinDao
+import com.blueberryprojects.cryptowatch.featurecrypto.data.datasource.CoinDao
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.toCoin
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
@@ -18,8 +18,8 @@ class GetAllCoinsUseCase @Inject constructor(
     private val coinDao: CoinDao,
 ) {
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
-        emit(Resource.Loading(coinDao.getAllCoins()))
         try {
+            emit(Resource.Loading(coinDao.getAllCoins()))
             val newCoins = coinRepository.getAllCoins()
             coinDao.deleteAllCoins()
             coinDao.insertCoins(newCoins.map { it.toCoin() })

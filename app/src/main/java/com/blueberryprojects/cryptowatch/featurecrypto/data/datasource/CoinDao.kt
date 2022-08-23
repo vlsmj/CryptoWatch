@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.featurecrypto.data.data_source
+package com.blueberryprojects.cryptowatch.featurecrypto.data.datasource
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -9,14 +9,14 @@ import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 interface CoinDao {
 
     @Query("SELECT * FROM coin")
-    fun getAllCoins(): List<Coin>
+    suspend fun getAllCoins(): List<Coin>
 
     @Query("SELECT * FROM coin WHERE id = :id")
-    fun getCoinById(id: String): Coin
+    suspend fun getCoinById(id: String): Coin
 
     @Insert
-    fun insertCoins(coins: List<Coin>)
+    suspend fun insertCoins(coins: List<Coin>)
 
     @Query("DELETE FROM coin")
-    fun deleteAllCoins()
+    suspend fun deleteAllCoins()
 }

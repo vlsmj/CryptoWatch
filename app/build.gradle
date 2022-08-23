@@ -65,6 +65,7 @@ dependencies {
 
     /* Hilt */
     implementation("com.google.dagger:hilt-android:$hilt_version")
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
 
     /* Room */
@@ -92,6 +93,9 @@ dependencies {
     /* Retrofit */
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    /* Compose dependencies */
+    implementation "androidx.navigation:navigation-compose:$compose_navigation_version"
 }
 
 // Allow references to generated code

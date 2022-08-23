@@ -6,6 +6,8 @@ buildscript {
         glide_version = '4.13.2'
         okhttp_version = '4.10.0'
         retrofit_version = '2.9.0'
+        compose_viewmodel_version = '2.6.0-alpha01'
+        compose_navigation_version = '2.5.1'
     }
 
     dependencies {

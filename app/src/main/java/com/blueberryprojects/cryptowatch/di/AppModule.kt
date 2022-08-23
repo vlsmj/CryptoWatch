@@ -3,7 +3,7 @@ package com.blueberryprojects.cryptowatch.di
 import android.app.Application
 import androidx.room.Room
 import com.blueberryprojects.cryptowatch.common.Constants.BASE_URL
-import com.blueberryprojects.cryptowatch.featurecrypto.data.data_source.CryptoDatabase
+import com.blueberryprojects.cryptowatch.featurecrypto.data.datasource.CryptoDatabase
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.CoinsUseCases
@@ -52,7 +52,6 @@ object AppModule {
         getAllCoinsUseCase = GetAllCoinsUseCase(coinRepository, database.coinDao())
     )
 }
-
 
 
 

@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.featurecrypto.data.data_source
+package com.blueberryprojects.cryptowatch.featurecrypto.data.datasource
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

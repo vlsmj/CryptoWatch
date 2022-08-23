@@ -1,4 +1,4 @@
-package com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.screen
+package com.blueberryprojects.cryptowatch.featurecrypto.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,18 +10,33 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.screen.CoinsListScreen
 import com.blueberryprojects.cryptowatch.ui.theme.CryptoWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CryptoWatchTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CoinsListScreen.route
+                    ) {
+                        composable(
+                            route = Screen.CoinsListScreen.route
+                        ) {
+                            CoinsListScreen(modifier = Modifier.fillMaxSize())
+                        }
+                    }
                 }
             }
         }
