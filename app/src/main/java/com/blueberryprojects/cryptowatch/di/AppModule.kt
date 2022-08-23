@@ -4,7 +4,10 @@ import android.app.Application
 import androidx.room.Room
 import com.blueberryprojects.cryptowatch.common.Constants.BASE_URL
 import com.blueberryprojects.cryptowatch.feature_crypto.data.data_source.CryptoDatabase
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.CoinGeckoApi
 import com.blueberryprojects.cryptowatch.feature_crypto.domain.repository.CoinRepository
+import com.blueberryprojects.cryptowatch.feature_crypto.domain.use_case.coins.CoinsUseCases
+import com.blueberryprojects.cryptowatch.feature_crypto.domain.use_case.coins.GetAllCoinsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +33,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCoinGeckoApi(): CoinRepository {
+    fun provideCoinGeckoApi(): CoinGeckoApi {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
             .build()
@@ -40,6 +43,29 @@ object AppModule {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(CoinRepository::class.java)
+            .create(CoinGeckoApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideCoinsUseCases(coinRepository: CoinRepository, database: CryptoDatabase) = CoinsUseCases(
+        getAllCoinsUseCase = GetAllCoinsUseCase(coinRepository, database.coinDao())
+    )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

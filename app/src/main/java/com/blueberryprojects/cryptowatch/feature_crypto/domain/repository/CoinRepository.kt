@@ -1,8 +1,11 @@
 package com.blueberryprojects.cryptowatch.feature_crypto.domain.repository
 
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDataDto
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDto
+
 interface CoinRepository {
 
-    fun getAllCoins()
+    suspend fun getAllCoins(): List<CoinDto>
 
-    fun getCoinById(id: String)
+    suspend fun getCoinById(id: String): CoinDataDto
 }

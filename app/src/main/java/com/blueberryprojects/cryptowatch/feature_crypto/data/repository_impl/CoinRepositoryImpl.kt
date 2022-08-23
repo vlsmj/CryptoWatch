@@ -1,14 +1,20 @@
 package com.blueberryprojects.cryptowatch.feature_crypto.data.repository_impl
 
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.CoinGeckoApi
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDataDto
+import com.blueberryprojects.cryptowatch.feature_crypto.data.remote.dto.CoinDto
 import com.blueberryprojects.cryptowatch.feature_crypto.domain.repository.CoinRepository
+import javax.inject.Inject
 
-class CoinRepositoryImpl : CoinRepository {
+class CoinRepositoryImpl @Inject constructor(
+    private val coinGeckoApi: CoinGeckoApi,
+) : CoinRepository {
 
-    override fun getAllCoins() {
-
+    override suspend fun getAllCoins(): List<CoinDto> {
+        return coinGeckoApi.getAllCoins()
     }
 
-    override fun getCoinById(id: String) {
-
+    override suspend fun getCoinById(id: String): CoinDataDto {
+        return coinGeckoApi.getCoinById(id)
     }
 }

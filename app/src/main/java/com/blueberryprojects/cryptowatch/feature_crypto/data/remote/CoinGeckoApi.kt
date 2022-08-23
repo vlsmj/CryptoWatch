@@ -11,5 +11,5 @@ interface CoinGeckoApi {
     suspend fun getAllCoins(): List<CoinDto>
 
     @GET("v3/coins/{id}")
-    suspend fun getCoin(@Path("id") id: String): CoinDataDto
+    suspend fun getCoinById(@Path("id") id: String): CoinDataDto
 }
