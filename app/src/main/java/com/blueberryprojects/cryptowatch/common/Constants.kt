@@ -7,4 +7,6 @@ object Constants {
     const val CURRENCY = "usd"
     const val CURRENCY_SYMBOL = "$"
     const val LANGUAGE = "en"
+
+    const val DELAY_CANCEL = 1000L
 }
