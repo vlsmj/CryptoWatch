@@ -32,7 +32,7 @@ fun CryptoWatchTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
-        LightColorPalette
+        DarkColorPalette
     }
 
     MaterialTheme(

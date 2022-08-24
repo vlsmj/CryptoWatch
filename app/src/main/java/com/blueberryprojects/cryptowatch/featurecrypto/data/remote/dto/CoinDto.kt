@@ -15,7 +15,7 @@ data class CoinDto(
 )
 
 fun CoinDto.toCoin(): Coin {
-    val id = name.substringAfter("/images/").run {
+    val id = image.substringAfter("/images/").run {
         this.substringBefore("/")
     }
 
