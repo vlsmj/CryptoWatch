@@ -9,14 +9,16 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 
 @Composable
-fun ImageSvg(modifier: Modifier = Modifier, url: String) {
-    Box(modifier = modifier) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(url)
-                .decoderFactory(SvgDecoder.Factory())
-                .build(),
-            contentDescription = null
-        )
+fun ImageSvg(modifier: Modifier = Modifier, url: String?) {
+    url?.let {
+        Box(modifier = modifier) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(it)
+                    .decoderFactory(SvgDecoder.Factory())
+                    .build(),
+                contentDescription = null
+            )
+        }
     }
 }

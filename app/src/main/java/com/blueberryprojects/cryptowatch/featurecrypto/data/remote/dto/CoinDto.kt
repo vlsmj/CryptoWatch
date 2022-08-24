@@ -8,6 +8,7 @@ data class CoinDto(
     val symbol: String,
     val name: String,
     val image: String,
+    val large: String,
     @SerializedName("current_price") val currentPrice: Double,
     @SerializedName("market_cap_rank") val marketCapRank: Int,
     @SerializedName("low_24h") val low24h: Double,
@@ -31,5 +32,15 @@ fun CoinDto.toCoin(): Coin {
         low24h = this.low24h,
         high24h = this.high24h,
         sparkline = sparklineUrl
+    )
+}
+
+fun CoinDto.toCoinSearch(): Coin {
+    return Coin(
+        id = this.id,
+        symbol = this.symbol,
+        name = this.name,
+        image = this.large,
+        marketCapRank = this.marketCapRank
     )
 }

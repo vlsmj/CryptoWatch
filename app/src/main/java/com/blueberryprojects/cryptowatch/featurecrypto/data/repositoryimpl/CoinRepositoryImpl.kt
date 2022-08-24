@@ -3,6 +3,7 @@ package com.blueberryprojects.cryptowatch.featurecrypto.data.repositoryimpl
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinDataDto
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinDto
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinsDto
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import javax.inject.Inject
 
@@ -12,6 +13,10 @@ class CoinRepositoryImpl @Inject constructor(
 
     override suspend fun getAllCoins(): List<CoinDto> {
         return coinGeckoApi.getAllCoins()
+    }
+
+    override suspend fun searchCoin(query: String): CoinsDto {
+        return coinGeckoApi.searchCoin(query)
     }
 
     override suspend fun getCoinById(id: String): CoinDataDto {

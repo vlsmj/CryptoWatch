@@ -15,7 +15,6 @@ import javax.inject.Inject
 class CoinViewModel @Inject constructor(
     private val coinsUseCases: CoinsUseCases,
 ) : ViewModel() {
-
     var coinState = mutableStateOf(CoinState())
         private set
 
@@ -25,6 +24,22 @@ class CoinViewModel @Inject constructor(
 
     private fun getAllCoins() {
         coinsUseCases.getAllCoinsUseCase().onEach {
+            when (it) {
+                is Resource.Loading -> {
+                    coinState.value = CoinState(isLoading = true)
+                }
+                is Resource.Success -> {
+                    coinState.value = CoinState(data = it.data ?: mutableListOf())
+                }
+                is Resource.Error -> {
+                    coinState.value = CoinState(errorMessage = it.errorMessage)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun searchCoin(query: String) {
+        coinsUseCases.searchCoinUseCase(query).onEach {
             when (it) {
                 is Resource.Loading -> {
                     coinState.value = CoinState(isLoading = true)

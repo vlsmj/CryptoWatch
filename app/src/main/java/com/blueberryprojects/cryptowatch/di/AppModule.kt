@@ -8,6 +8,7 @@ import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.CoinsUseCases
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.GetAllCoinsUseCase
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.SearchCoinUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,8 +28,9 @@ object AppModule {
     fun provideCryptoDatabase(app: Application): CryptoDatabase {
         return Room.databaseBuilder(
             app,
-            CryptoDatabase::class.java, "db_crypto"
-        ).build()
+            CryptoDatabase::class.java, "db_crypto")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -49,7 +51,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideCoinsUseCases(coinRepository: CoinRepository, database: CryptoDatabase) = CoinsUseCases(
-        getAllCoinsUseCase = GetAllCoinsUseCase(coinRepository, database.coinDao())
+        getAllCoinsUseCase = GetAllCoinsUseCase(coinRepository, database.coinDao()),
+        searchCoinUseCase = SearchCoinUseCase(coinRepository, database.coinDao())
     )
 }
 

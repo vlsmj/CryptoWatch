@@ -35,7 +35,7 @@ fun CoinListItem(
                 Text(
                     text = marketCapRank.toString(),
                     fontSize = 8.sp,
-                    modifier = Modifier.weight(0.23f),
+                    modifier = Modifier.weight(0.25f),
                     color = Color.White
                 )
                 AsyncImage(

@@ -9,9 +9,9 @@ data class Coin(
     val symbol: String,
     val name: String,
     val image: String,
-    val currentPrice: Double,
+    val currentPrice: Double? = 0.0,
     val marketCapRank: Int,
-    val low24h: Double,
-    val high24h: Double,
-    val sparkline: String,
+    val low24h: Double? = 0.0,
+    val high24h: Double? = 0.0,
+    val sparkline: String? = "",
 )

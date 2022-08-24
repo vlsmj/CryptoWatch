@@ -2,6 +2,7 @@ package com.blueberryprojects.cryptowatch.featurecrypto.data.datasource
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 
@@ -14,7 +15,7 @@ interface CoinDao {
     @Query("SELECT * FROM coin WHERE id = :id")
     suspend fun getCoinById(id: String): Coin
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCoins(coins: List<Coin>)
 
     @Query("DELETE FROM coin")
