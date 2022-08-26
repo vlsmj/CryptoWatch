@@ -9,4 +9,5 @@ object Constants {
     const val LANGUAGE = "en"
 
     const val DELAY_CANCEL = 1000L
+    const val LIMIT_SIZE = 50
 }

@@ -12,10 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.blueberryprojects.cryptowatch.common.Tags.INPUT_SEARCH_COIN
+import com.blueberryprojects.cryptowatch.common.Tags.LIST_COINS
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CoinListItem
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwTextField
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
@@ -34,7 +37,8 @@ fun CoinsListScreen(
                 .padding(8.dp)
                 .border(1.dp, Color.Transparent, RoundedCornerShape(32.dp))
                 .clip(RoundedCornerShape(32.dp))
-                .background(Color.DarkGray),
+                .background(Color.DarkGray)
+                .testTag(INPUT_SEARCH_COIN),
             hint = "Search coin"
         ) { input ->
             if (input.isEmpty()) {
@@ -93,7 +97,8 @@ fun CoinsListScreen(
         }
 
         LazyColumn(
-            modifier = modifier,
+            modifier = modifier
+                .testTag(LIST_COINS),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(state.data) { coin ->

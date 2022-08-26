@@ -6,12 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.blueberryprojects.cryptowatch.common.Constants.CURRENCY_SYMBOL
+import com.blueberryprojects.cryptowatch.common.Tags.MARKET_CAP_RANK
 import com.blueberryprojects.cryptowatch.common.components.ImageSvg
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 
@@ -35,7 +37,9 @@ fun CoinListItem(
                 Text(
                     text = marketCapRank.toString(),
                     fontSize = 8.sp,
-                    modifier = Modifier.weight(0.25f),
+                    modifier = Modifier
+                        .weight(0.25f)
+                        .testTag(MARKET_CAP_RANK),
                     color = Color.White
                 )
                 AsyncImage(
