@@ -29,7 +29,11 @@ class CoinViewModel @Inject constructor(
         getAllCoins()
     }
 
-    private fun getAllCoins() {
+    fun getAllCoins() {
+        job?.let {
+            if (it.isActive) it.cancel()
+        }
+
         coinsUseCases.getAllCoinsUseCase().onEach {
             when (it) {
                 is Resource.Loading -> {

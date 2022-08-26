@@ -20,13 +20,13 @@ class GetAllCoinsUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
         try {
             emit(Resource.Loading(coinDao.getAllCoins().filter {
-                it.marketCapRank < 52
+                it.marketCapRank < 51
             }))
             val newCoins = coinRepository.getAllCoins()
             coinDao.deleteAllCoins()
             coinDao.insertCoins(newCoins.map { it.toCoin() })
             emit(Resource.Success(coinDao.getAllCoins().filter {
-                it.marketCapRank < 52
+                it.marketCapRank < 51
             }))
         } catch (e: HttpException) {
             emit(Resource.Error(UiText.StringResource(R.string.error_exception_message)))
