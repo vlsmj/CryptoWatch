@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.blueberryprojects.cryptowatch.common.Constants.DELAY_CANCEL
 import com.blueberryprojects.cryptowatch.common.util.Resource
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.CoinsUseCases
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.state.CoinDetailsState
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.state.CoinState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -25,6 +26,9 @@ class CoinViewModel @Inject constructor(
     var coinState = mutableStateOf(CoinState())
         private set
 
+    var coinDetailsState = mutableStateOf(CoinDetailsState())
+        private set
+
     init {
         getAllCoins()
     }
@@ -37,13 +41,13 @@ class CoinViewModel @Inject constructor(
         coinsUseCases.getAllCoinsUseCase().onEach {
             when (it) {
                 is Resource.Loading -> {
-                    coinState.value = CoinState(isLoading = true)
+                    coinState.value = coinState.value.copy(isLoading = true)
                 }
                 is Resource.Success -> {
-                    coinState.value = CoinState(data = it.data ?: mutableListOf())
+                    coinState.value = coinState.value.copy(data = it.data ?: mutableListOf(), isLoading = false)
                 }
                 is Resource.Error -> {
-                    coinState.value = CoinState(errorMessage = it.errorMessage)
+                    coinState.value = coinState.value.copy(errorMessage = it.errorMessage, isLoading = false)
                 }
             }
         }.launchIn(viewModelScope)
@@ -55,20 +59,25 @@ class CoinViewModel @Inject constructor(
         }
 
         job = viewModelScope.launch {
+
             delay(DELAY_CANCEL)
             coinsUseCases.searchCoinUseCase(query).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        coinState.value = CoinState(isLoading = true)
+                        coinState.value = coinState.value.copy(isLoading = true)
                     }
                     is Resource.Success -> {
-                        coinState.value = CoinState(data = it.data ?: mutableListOf())
+                        coinState.value = coinState.value.copy(data = it.data ?: mutableListOf(), isLoading = false)
                     }
                     is Resource.Error -> {
-                        coinState.value = CoinState(errorMessage = it.errorMessage)
+                        coinState.value = coinState.value.copy(errorMessage = it.errorMessage, isLoading = false)
                     }
                 }
             }
         }
+    }
+
+    fun getCoinDetails() {
+
     }
 }

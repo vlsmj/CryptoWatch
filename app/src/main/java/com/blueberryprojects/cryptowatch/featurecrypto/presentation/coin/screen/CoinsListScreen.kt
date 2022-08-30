@@ -39,9 +39,12 @@ fun CoinsListScreen(
                 .clip(RoundedCornerShape(32.dp))
                 .background(Color.DarkGray)
                 .testTag(INPUT_SEARCH_COIN),
-            hint = "Search coin"
+            hint = "Search coin",
+            query = state.query
         ) { input ->
-            if (input.isEmpty()) {
+            viewModel.coinState.value = viewModel.coinState.value.copy(query = input)
+
+            if (state.query.isEmpty()) {
                 viewModel.getAllCoins()
             } else {
                 viewModel.searchCoin(input)

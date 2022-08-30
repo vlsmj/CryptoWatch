@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.sp
 fun CwTextField(
     modifier: Modifier,
     hint: String,
+    query: String,
     onValueChange: (input: String) -> Unit,
 ) {
     var textState by remember {
-        mutableStateOf("")
+        mutableStateOf(query)
     }
 
     BasicTextField(

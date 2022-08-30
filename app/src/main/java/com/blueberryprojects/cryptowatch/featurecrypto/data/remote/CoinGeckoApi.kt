@@ -17,5 +17,5 @@ interface CoinGeckoApi {
     suspend fun searchCoin(@Query("query") query: String): CoinsDto
 
     @GET("coins/{id}")
-    suspend fun getCoinById(@Path("id") id: String): CoinDataDto
+    suspend fun getCoinDetailsById(@Path("id") id: String): CoinDataDto
 }

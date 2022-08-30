@@ -6,8 +6,8 @@ import com.blueberryprojects.cryptowatch.common.util.Resource
 import com.blueberryprojects.cryptowatch.common.util.UiText
 import com.blueberryprojects.cryptowatch.featurecrypto.data.datasource.CoinDao
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
-import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.CoinDataDto
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.toCoin
+import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.toCoinData
 import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.dto.toCoinSearch
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.flow
@@ -55,7 +55,43 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCoinById(id: String): CoinDataDto {
-        return coinGeckoApi.getCoinById(id)
+    override suspend fun getCoinDetailsById(id: String) = flow {
+        try {
+            val coinDetails = coinGeckoApi.getCoinDetailsById(id)
+            coinDao.deleteCoinDetails()
+            coinDao.insertCoinDetails(coinDetails.toCoinData())
+            emit(Resource.Success(coinDao.getCoinDetails()))
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.StringResource(R.string.error_exception_message)))
+        } catch (e: IOException) {
+            emit(Resource.Error(UiText.StringResource(R.string.error_io_exception_message)))
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

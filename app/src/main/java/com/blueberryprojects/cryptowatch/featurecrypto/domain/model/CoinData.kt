@@ -15,5 +15,5 @@ data class CoinData(
     val priceChangePercentage7d: Double,
     val priceChangePercentage14d: Double,
     val marketCap: Double,
-    val link: String,
+    val link: String?,
 )
