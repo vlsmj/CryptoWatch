@@ -9,9 +9,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.screen.CoinDetailsScreen
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.screen.CoinsListScreen
 import com.blueberryprojects.cryptowatch.ui.theme.CryptoWatchTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,9 +37,27 @@ class MainActivity : ComponentActivity() {
                             route = Screen.CoinsListScreen.route
                         ) {
                             CoinsListScreen(
+                                navController,
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(horizontal = 4.dp)
+                            )
+                        }
+                        composable(
+                            route = Screen.CoinDetailsScreen.route + "?id={id}",
+                            arguments = listOf(
+                                navArgument(
+                                    name = "id"
+                                ) {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                }
+                            )
+                        ) {
+                            CoinDetailsScreen(
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                it.arguments?.getString("id") ?: ""
                             )
                         }
                     }

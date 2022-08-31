@@ -9,6 +9,7 @@ import com.blueberryprojects.cryptowatch.featurecrypto.data.remote.CoinGeckoApi
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.repository.CoinRepository
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.CoinsUseCases
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.GetAllCoinsUseCase
+import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.GetCoinDetailsUseCase
 import com.blueberryprojects.cryptowatch.featurecrypto.domain.usecase.coins.SearchCoinUseCase
 import dagger.Module
 import dagger.Provides
@@ -59,7 +60,8 @@ object AppModule {
     @Singleton
     fun provideCoinsUseCases(coinRepository: CoinRepository) = CoinsUseCases(
         getAllCoinsUseCase = GetAllCoinsUseCase(coinRepository),
-        searchCoinUseCase = SearchCoinUseCase(coinRepository)
+        searchCoinUseCase = SearchCoinUseCase(coinRepository),
+        getCoinDetailsUseCase = GetCoinDetailsUseCase(coinRepository)
     )
 }
 

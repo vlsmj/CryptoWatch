@@ -17,14 +17,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.blueberryprojects.cryptowatch.common.Tags.INPUT_SEARCH_COIN
 import com.blueberryprojects.cryptowatch.common.Tags.LIST_COINS
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.Screen
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CoinListItem
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwTextField
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
 
 @Composable
 fun CoinsListScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: CoinViewModel = hiltViewModel(),
 ) {
@@ -105,7 +108,9 @@ fun CoinsListScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(state.data) { coin ->
-                CoinListItem(modifier = Modifier.fillMaxWidth(), coin)
+                CoinListItem(modifier = Modifier.fillMaxWidth(), coin) { id ->
+                    navController.navigate(Screen.CoinDetailsScreen.route + "?id=${id}")
+                }
             }
         }
     }

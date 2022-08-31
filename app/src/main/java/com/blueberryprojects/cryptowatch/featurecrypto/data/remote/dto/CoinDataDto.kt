@@ -18,12 +18,12 @@ fun CoinDataDto.toCoinData(): CoinData {
         id = this.id,
         symbol = this.symbol,
         name = this.name,
-        image = this.imageData.small,
+        image = this.imageData.large,
         description = this.description.language,
         currentPrice = this.marketData.currentPrice.currency,
         priceChangePercentage24h = this.marketData.priceChangePercentage24h,
         priceChangePercentage7d = this.marketData.priceChangePercentage7d,
-        priceChangePercentage14d = this.marketData.priceChangePercentage7d,
+        priceChangePercentage14d = this.marketData.priceChangePercentage14d,
         marketCap = this.marketData.marketCap.currency,
         link = this.links.homepage[0]
     )

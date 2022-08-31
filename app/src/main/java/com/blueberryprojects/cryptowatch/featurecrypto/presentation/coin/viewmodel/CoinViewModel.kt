@@ -77,7 +77,19 @@ class CoinViewModel @Inject constructor(
         }
     }
 
-    fun getCoinDetails() {
-
+    fun getCoinDetails(id: String) {
+        coinsUseCases.getCoinDetailsUseCase(id).onEach {
+            when (it) {
+                is Resource.Loading -> {
+                    coinDetailsState.value = coinDetailsState.value.copy(isLoading = true)
+                }
+                is Resource.Success -> {
+                    coinDetailsState.value = coinDetailsState.value.copy(data = it.data, isLoading = false)
+                }
+                is Resource.Error -> {
+                    coinDetailsState.value = coinDetailsState.value.copy(errorMessage = it.errorMessage, isLoading = false)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

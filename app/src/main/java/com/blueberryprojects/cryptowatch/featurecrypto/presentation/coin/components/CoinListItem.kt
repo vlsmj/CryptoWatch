@@ -1,5 +1,6 @@
 package com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,8 +22,14 @@ import com.blueberryprojects.cryptowatch.featurecrypto.domain.model.Coin
 fun CoinListItem(
     modifier: Modifier = Modifier,
     coin: Coin,
+    onItemClick: (id: String) -> Unit,
 ) {
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+            .clickable {
+                onItemClick(coin.id)
+            }
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
