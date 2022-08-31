@@ -7,11 +7,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,6 +27,7 @@ import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.compone
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwTextField
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CoinsListScreen(
     navController: NavController,
@@ -32,6 +35,14 @@ fun CoinsListScreen(
     viewModel: CoinViewModel = hiltViewModel(),
 ) {
     val state = viewModel.coinState.value
+
+    var closeKeyboardState by remember {
+        mutableStateOf(false)
+    }
+
+    if (closeKeyboardState) {
+        LocalSoftwareKeyboardController.current?.hide()
+    }
 
     Column(modifier = modifier) {
         CwTextField(
@@ -44,14 +55,16 @@ fun CoinsListScreen(
                 .testTag(INPUT_SEARCH_COIN),
             hint = "Search coin",
             query = state.query
-        ) { input ->
+        ) { input, closeKeyboard ->
             viewModel.coinState.value = viewModel.coinState.value.copy(query = input)
 
-            if (state.query.isEmpty()) {
+            if (input.isBlank()) {
                 viewModel.getAllCoins()
             } else {
                 viewModel.searchCoin(input)
             }
+
+            closeKeyboardState = closeKeyboard
         }
 
         Row(

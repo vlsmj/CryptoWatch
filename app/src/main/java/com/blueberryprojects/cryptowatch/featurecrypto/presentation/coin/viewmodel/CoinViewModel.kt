@@ -59,7 +59,6 @@ class CoinViewModel @Inject constructor(
         }
 
         job = viewModelScope.launch {
-
             delay(DELAY_CANCEL)
             coinsUseCases.searchCoinUseCase(query).collect {
                 when (it) {

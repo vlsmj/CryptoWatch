@@ -24,7 +24,7 @@ fun CwTextField(
     modifier: Modifier,
     hint: String,
     query: String,
-    onValueChange: (input: String) -> Unit,
+    onValueChange: (input: String, closeKeyboard: Boolean) -> Unit,
 ) {
     var textState by remember {
         mutableStateOf(query)
@@ -43,7 +43,7 @@ fun CwTextField(
         ),
         onValueChange = {
             textState = it
-            onValueChange(textState)
+            onValueChange(textState, false)
         },
         enabled = true,
         singleLine = true,
@@ -78,7 +78,7 @@ fun CwTextField(
                             .size(16.dp)
                             .clickable {
                                 textState = ""
-                                onValueChange(textState)
+                                onValueChange(textState, true)
                             }
                     )
                 }
