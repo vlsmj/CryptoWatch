@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.blueberryprojects.cryptowatch.common.Constants
+import com.blueberryprojects.cryptowatch.common.Tags.COIN_DETAILS_NAME_SYMBOL
 import com.blueberryprojects.cryptowatch.common.components.ImageSvg
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwProgressBar
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
@@ -38,9 +40,7 @@ fun CoinDetailsScreen(
         mutableStateOf("")
     }
 
-    LaunchedEffect(key1 = true) {
-        viewModel.getCoinDetails(id)
-    }
+    viewModel.getCoinDetails(id)
 
     if (openedLink.isNotEmpty()) {
         AndroidView(factory = {
@@ -89,6 +89,7 @@ fun CoinDetailsScreen(
                                 .padding(horizontal = 8.dp)
                         ) {
                             Text(
+                                modifier = Modifier.testTag(COIN_DETAILS_NAME_SYMBOL),
                                 fontSize = 12.sp,
                                 text = "${it.name} (${it.symbol})"
                             )

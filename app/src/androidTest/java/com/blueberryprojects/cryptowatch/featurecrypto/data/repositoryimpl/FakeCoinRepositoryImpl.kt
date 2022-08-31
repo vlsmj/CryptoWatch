@@ -18,7 +18,7 @@ class FakeCoinRepositoryImpl @Inject constructor(
 
     private var listCoinsDto = mutableListOf<CoinDto>()
     private var coinsDto: CoinsDto
-    private lateinit var coinDataDto: CoinDataDto
+    private var coinDataDto: CoinDataDto
 
     init {
         (1..100).forEachIndexed { index, i ->
@@ -36,6 +36,23 @@ class FakeCoinRepositoryImpl @Inject constructor(
         }
 
         coinsDto = CoinsDto(listCoinsDto)
+
+        listCoinsDto[0].run {
+            coinDataDto = CoinDataDto(
+                id = id,
+                symbol = symbol,
+                name = name,
+                imageData = ImageDataDto("", "", image),
+                marketData = MarketDataDto(
+                    PriceDto(0.0),
+                    0.0,
+                    0.0,
+                    0.0,
+                    PriceDto(0.0)),
+                description = LanguageDto(""),
+                links = HomepageDto(listOf(""))
+            )
+        }
     }
 
     override suspend fun getAllCoins() = flow {
@@ -71,7 +88,16 @@ class FakeCoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCoinById(id: String): CoinDataDto {
-        return coinDataDto
+    override suspend fun getCoinDetailsById(id: String) = flow {
+        try {
+            val coinDetails = coinDataDto
+            coinDao.deleteCoinDetails()
+            coinDao.insertCoinDetails(coinDetails.toCoinData())
+            emit(Resource.Success(coinDao.getCoinDetails()))
+        } catch (e: HttpException) {
+            emit(Resource.Error(UiText.StringResource(R.string.error_exception_message)))
+        } catch (e: IOException) {
+            emit(Resource.Error(UiText.StringResource(R.string.error_io_exception_message)))
+        }
     }
 }
