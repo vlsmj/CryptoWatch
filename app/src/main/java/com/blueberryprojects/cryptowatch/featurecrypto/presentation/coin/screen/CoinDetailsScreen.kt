@@ -21,6 +21,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.blueberryprojects.cryptowatch.common.Constants
 import com.blueberryprojects.cryptowatch.common.components.ImageSvg
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwProgressBar
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
 
 @Composable
@@ -55,89 +56,98 @@ fun CoinDetailsScreen(
             it.loadUrl(openedLink)
         })
     } else {
-        coinDetailsState.data?.let {
-            Column(
-                modifier = modifier
-                    .padding(16.dp)
-                    .verticalScroll(scrollState)
-                    .fillMaxSize()
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+        Box {
+            if (coinDetailsState.isLoading) {
+                CwProgressBar(modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.Center)
+                )
+            }
+
+            coinDetailsState.data?.let {
+                Column(
+                    modifier = modifier
+                        .padding(16.dp)
+                        .verticalScroll(scrollState)
+                        .fillMaxSize()
                 ) {
-                    ImageSvg(
-                        url = it.image,
+                    Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.2f)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ImageSvg(
+                            url = it.image,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(0.2f)
+                        )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .padding(horizontal = 8.dp)
+                        ) {
+                            Text(
+                                fontSize = 12.sp,
+                                text = "${it.name} (${it.symbol})"
+                            )
+                            Text(
+                                fontSize = 12.sp,
+                                text = "Market Cap: ${Constants.CURRENCY_SYMBOL}${it.marketCap}"
+                            )
+                            Text(
+                                fontSize = 12.sp,
+                                text = buildAnnotatedString {
+                                    val urlStyle = SpanStyle(
+                                        color = Color(0xFF3895D3),
+                                    )
+                                    pushStyle(urlStyle)
+                                    append(it.link ?: "")
+                                },
+                                modifier = Modifier.clickable {
+                                    openedLink = it.link ?: ""
+                                }
+                            )
+                        }
+                    }
+                    Spacer(
+                        modifier = Modifier.height(16.dp)
                     )
-                    Column(
+                    Text(
+                        fontSize = 12.sp,
+                        text = it.description
+                    )
+                    Spacer(
+                        modifier = Modifier.height(24.dp)
+                    )
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        fontSize = 12.sp,
+                        text = "Current Price: ${Constants.CURRENCY_SYMBOL}${it.currentPrice}",
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(
+                        modifier = Modifier.height(8.dp)
+                    )
+                    Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                            .padding(horizontal = 8.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround
                     ) {
                         Text(
                             fontSize = 12.sp,
-                            text = "${it.name} (${it.symbol})"
+                            text = "% ${it.priceChangePercentage24h} (24h)"
                         )
                         Text(
                             fontSize = 12.sp,
-                            text = "Market Cap: ${Constants.CURRENCY_SYMBOL}${it.marketCap}"
+                            text = "% ${it.priceChangePercentage7d} (7d)"
                         )
                         Text(
                             fontSize = 12.sp,
-                            text = buildAnnotatedString {
-                                val urlStyle = SpanStyle(
-                                    color = Color(0xFF3895D3),
-                                )
-                                pushStyle(urlStyle)
-                                append(it.link ?: "")
-                            },
-                            modifier = Modifier.clickable {
-                                openedLink = it.link ?: ""
-                            }
+                            text = "% ${it.priceChangePercentage14d} (14d)"
                         )
                     }
-                }
-                Spacer(
-                    modifier = Modifier.height(16.dp)
-                )
-                Text(
-                    fontSize = 12.sp,
-                    text = it.description
-                )
-                Spacer(
-                    modifier = Modifier.height(24.dp)
-                )
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    fontSize = 12.sp,
-                    text = "Current Price: ${Constants.CURRENCY_SYMBOL}${it.currentPrice}",
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Text(
-                        fontSize = 12.sp,
-                        text = "% ${it.priceChangePercentage24h} (24h)"
-                    )
-                    Text(
-                        fontSize = 12.sp,
-                        text = "% ${it.priceChangePercentage7d} (7d)"
-                    )
-                    Text(
-                        fontSize = 12.sp,
-                        text = "% ${it.priceChangePercentage14d} (14d)"
-                    )
                 }
             }
         }

@@ -24,6 +24,7 @@ import com.blueberryprojects.cryptowatch.common.Tags.INPUT_SEARCH_COIN
 import com.blueberryprojects.cryptowatch.common.Tags.LIST_COINS
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.Screen
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CoinListItem
+import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwProgressBar
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.components.CwTextField
 import com.blueberryprojects.cryptowatch.featurecrypto.presentation.coin.viewmodel.CoinViewModel
 
@@ -44,85 +45,94 @@ fun CoinsListScreen(
         LocalSoftwareKeyboardController.current?.hide()
     }
 
-    Column(modifier = modifier) {
-        CwTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .border(1.dp, Color.Transparent, RoundedCornerShape(32.dp))
-                .clip(RoundedCornerShape(32.dp))
-                .background(Color.DarkGray)
-                .testTag(INPUT_SEARCH_COIN),
-            hint = "Search coin",
-            query = state.query
-        ) { input, closeKeyboard ->
-            viewModel.coinState.value = viewModel.coinState.value.copy(query = input)
+    Box {
+        if (state.isLoading) {
+            CwProgressBar(modifier = Modifier
+                .size(24.dp)
+                .align(Alignment.Center)
+            )
+        }
 
-            if (input.isBlank()) {
-                viewModel.getAllCoins()
-            } else {
-                viewModel.searchCoin(input)
+        Column(modifier = modifier) {
+            CwTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .border(1.dp, Color.Transparent, RoundedCornerShape(32.dp))
+                    .clip(RoundedCornerShape(32.dp))
+                    .background(Color.DarkGray)
+                    .testTag(INPUT_SEARCH_COIN),
+                hint = "Search coin",
+                query = state.query
+            ) { input, closeKeyboard ->
+                viewModel.coinState.value = viewModel.coinState.value.copy(query = input)
+
+                if (input.isBlank()) {
+                    viewModel.getAllCoins()
+                } else {
+                    viewModel.searchCoin(input)
+                }
+
+                closeKeyboardState = closeKeyboard
             }
 
-            closeKeyboardState = closeKeyboard
-        }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Rank",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(0.4f),
+                    color = Color.White
+                )
+                Text(
+                    text = "Coin",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(2.27f),
+                    color = Color.White
+                )
+                Text(
+                    text = "Price",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(0.6f),
+                    textAlign = TextAlign.End,
+                    color = Color.White
+                )
+                Text(
+                    text = "Low 24h",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(0.77f),
+                    textAlign = TextAlign.End,
+                    color = Color.White
+                )
+                Text(
+                    text = "High 24h",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(0.77f),
+                    textAlign = TextAlign.End,
+                    color = Color.White
+                )
+                Text(
+                    text = "Last 7 Days",
+                    fontSize = 8.sp,
+                    modifier = Modifier.weight(0.97f),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+            }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Rank",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(0.4f),
-                color = Color.White
-            )
-            Text(
-                text = "Coin",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(2.27f),
-                color = Color.White
-            )
-            Text(
-                text = "Price",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(0.6f),
-                textAlign = TextAlign.End,
-                color = Color.White
-            )
-            Text(
-                text = "Low 24h",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(0.77f),
-                textAlign = TextAlign.End,
-                color = Color.White
-            )
-            Text(
-                text = "High 24h",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(0.77f),
-                textAlign = TextAlign.End,
-                color = Color.White
-            )
-            Text(
-                text = "Last 7 Days",
-                fontSize = 8.sp,
-                modifier = Modifier.weight(0.97f),
-                textAlign = TextAlign.Center,
-                color = Color.White
-            )
-        }
-
-        LazyColumn(
-            modifier = modifier
-                .testTag(LIST_COINS),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(state.data) { coin ->
-                CoinListItem(modifier = Modifier.fillMaxWidth(), coin) { id ->
-                    navController.navigate(Screen.CoinDetailsScreen.route + "?id=${id}")
+            LazyColumn(
+                modifier = modifier
+                    .testTag(LIST_COINS),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(state.data) { coin ->
+                    CoinListItem(modifier = Modifier.fillMaxWidth(), coin) { id ->
+                        navController.navigate(Screen.CoinDetailsScreen.route + "?id=${id}")
+                    }
                 }
             }
         }
